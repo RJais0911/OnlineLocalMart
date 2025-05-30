@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendors - Local Mart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="vdrstyle.css">
+</head>
+<body>
+    <div class="head">
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.avif" alt="Local Mart Logo">
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="vendor-page.html">Vendors</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                    <li><a href="contact-us.html">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="page-header">
+                <h1>Vendors Near You</h1>
+                <p>Discover local businesses in your neighborhood</p>
+            </div>
+
+            <div class="categories-container">
+                <section class="category-section" id="electronics">
+                    <h2><i class="fa fa-laptop"></i> Electronics</h2>
+                    <div class="category-items">
+                        <!-- Items will be dynamically added here -->
+                    </div>
+                </section>
+
+                <section class="category-section" id="accessories">
+                    <h2><i class="fa fa-diamond"></i> Accessories</h2>
+                    <div class="category-items">
+                        <!-- Items will be dynamically added here -->
+                    </div>
+                </section>
+
+                <section class="category-section" id="grocery">
+                    <h2><i class="fa fa-shopping-basket"></i> Grocery</h2>
+                    <div class="category-items">
+                        <!-- Items will be dynamically added here -->
+                    </div>
+                </section>
+
+                <section class="category-section" id="clothing">
+                    <h2><i class="fa fa-shopping-bag"></i> Clothing</h2>
+                    <div class="category-items">
+                        <!-- Items will be dynamically added here -->
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-menu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                    <li><a href="contact-us.html">Contact</a></li>
+                    <li><a href="journey.html">Our Journey</a></li>
+                </ul>
+            </div>
+            <div class="social-media">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-instagram"></i></a>
+            </div>
+            <div class="copy">
+                <p>&copy; 2023 Local Mart. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loader">
+            <i class="fa fa-spinner fa-spin"></i>
+            <p>Loading vendors...</p>
+        </div>
+    </div>
+
+    <!-- Error Message Template -->
+    <template id="error-template">
+        <div class="error-message">
+            <i class="fa fa-exclamation-circle"></i>
+            <p>Failed to load vendors. Please try again later.</p>
+            <button onclick="location.reload()" class="retry-button">
+                <i class="fa fa-refresh"></i> Retry
+            </button>
+        </div>
+    </template>
+
+    <!-- Empty Category Template -->
+    <template id="empty-category-template">
+        <div class="empty-category">
+            <i class="fa fa-info-circle"></i>
+            <p>No vendors available in this category yet.</p>
+        </div>
+    </template>
+
+    <!-- Scripts -->
+    <script src="vendors.js"></script>
+</body>
+</html>

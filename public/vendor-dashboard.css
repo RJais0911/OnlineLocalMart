@@ -1,0 +1,353 @@
+/* vendor-dashboard.css */
+
+/* Layout */
+.head {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa;
+}
+
+.main-content {
+    flex: 1;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Header Styles - Matching other pages */
+header {
+    background-color: white;
+    padding: 15px 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+    width: auto;
+}
+
+nav ul {
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    list-style: none;
+}
+
+nav ul li a {
+    color: #2c3e50;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #e67e22;
+}
+
+/* Shop Info Section */
+.shop-info-section {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    text-align: center;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.shop-info-section h1 {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.shop-info-section p {
+    color: #666;
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Stats Section Styles */
+.stats-section {
+    background-color: #f8f9fa;
+    padding: 2rem;
+    margin: 2rem 0;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.stat-card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card i {
+    font-size: 2.5rem;
+    color: #007bff;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.stat-card h3 {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+}
+
+.stat-card p {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .stat-card {
+        padding: 1rem;
+    }
+
+    .stat-card i {
+        font-size: 2rem;
+    }
+
+    .stat-card h3 {
+        font-size: 1rem;
+    }
+
+    .stat-card p {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-section {
+        padding: 1.5rem;
+        margin: 1rem 0;
+    }
+}
+
+/* Add Item Button */
+.add-item-btn {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 20px 0;
+}
+
+.add-item-btn:hover {
+    background-color: #d35400;
+    transform: translateY(-2px);
+}
+
+.add-item-btn i {
+    font-size: 1.2rem;
+}
+
+/* Add Item Form */
+.add-item-form {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    display: none;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    color: #2c3e50;
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #e67e22;
+    box-shadow: 0 0 0 2px rgba(230, 126, 34, 0.1);
+    outline: none;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #2c3e50;
+    color: white;
+    padding: 30px 0;
+    margin-top: auto;
+}
+
+.footer-menu ul {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-menu ul li {
+    list-style: none;
+}
+
+.footer-menu ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-menu ul li a:hover {
+    color: #e67e22;
+}
+
+.social-media {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.social-media a {
+    color: white;
+    margin: 0 10px;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.social-media a:hover {
+    color: #e67e22;
+    transform: translateY(-3px);
+}
+
+.copy {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.copy p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 20px;
+    }
+
+    header {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .shop-info-section h1 {
+        font-size: 2rem;
+    }
+
+    .row {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-menu ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* Focus States */
+a:focus,
+button:focus,
+input:focus,
+textarea:focus {
+    outline: 2px solid #e67e22;
+    outline-offset: 2px;
+}

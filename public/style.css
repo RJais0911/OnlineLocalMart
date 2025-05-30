@@ -1,0 +1,417 @@
+/* Base Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f8f9fa;
+}
+
+.head {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Styles */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 15px 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+    height: 50px;
+}
+
+nav ul {
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    list-style: none;
+}
+
+nav ul li a {
+    color: #2c3e50;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #e67e22;
+}
+
+/* Intro Section */
+.intro {
+    padding: 60px 20px;
+    background-color: rgb(245, 232, 177);
+}
+
+.intro h1 {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+.btn-outline-light {
+    border: 2px solid #2c3e50;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-light:hover {
+    background-color: #2c3e50;
+    color: white;
+}
+
+.crslimg img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Categories Section */
+/* .categories {
+    padding: 40px 20px;
+}
+
+.ctg {
+    margin-bottom: 30px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.ctg:hover {
+    transform: translateY(-5px);
+}
+
+.cardimg img {
+    width: 100%;
+    height: auto;
+    padding: 15px;
+}
+
+.ctg-body {
+    padding: 20px;
+}
+
+.card-title {
+    color: #2c3e50;
+    font-size: 1.3rem;
+    margin: 0;
+} */
+ /* Categories Section Styles */
+.categories-section {
+    padding: 60px 20px;
+    background: linear-gradient(to bottom, #f8f9fa, #ffffff);
+}
+
+/* Heading Styles */
+.section-heading {
+    text-align: center;
+    margin-bottom: 50px;
+    animation: fadeInDown 0.8s ease-out;
+}
+
+.section-heading h2 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.section-heading p {
+    color: #666;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.heading-underline {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(to right, #e67e22, #f39c12);
+    margin: 0 auto;
+    border-radius: 2px;
+}
+
+/* Categories Grid */
+.categories .row {
+    margin: -15px;
+}
+
+/* Category Card Styles */
+.card.ctg {
+    margin: 15px 0;
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.card.ctg:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card.ctg a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.cardimg {
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.card-img {
+    max-width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.card.ctg:hover .card-img {
+    transform: scale(1.1);
+}
+
+.ctg-body {
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(45deg, #f8f9fa, #ffffff);
+}
+
+.card-title {
+    font-size: 1.4rem;
+    color: #2c3e50;
+    margin: 0;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.card.ctg:hover .card-title {
+    color: #e67e22;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Stagger animation for cards */
+.col-md-6:nth-child(1) .card.ctg { animation-delay: 0.1s; }
+.col-md-6:nth-child(2) .card.ctg { animation-delay: 0.2s; }
+.col-md-6:nth-child(3) .card.ctg { animation-delay: 0.3s; }
+.col-md-6:nth-child(4) .card.ctg { animation-delay: 0.4s; }
+
+/* Hover effect for images */
+.cardimg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(230, 126, 34, 0.05);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card.ctg:hover .cardimg::after {
+    opacity: 1;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .section-heading h2 {
+        font-size: 2rem;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .categories-section {
+        padding: 40px 15px;
+    }
+
+    .section-heading {
+        margin-bottom: 30px;
+    }
+
+    .section-heading h2 {
+        font-size: 1.8rem;
+    }
+
+    .section-heading p {
+        font-size: 1rem;
+    }
+
+    .card.ctg {
+        margin: 10px 0;
+    }
+
+    .ctg-body {
+        padding: 15px;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .card.ctg,
+    .card-img,
+    .section-heading {
+        animation: none;
+        transition: none;
+    }
+}
+
+/* Optional: Add a subtle pattern background */
+.categories-section {
+    background-image: linear-gradient(to bottom, #f8f9fa, #ffffff),
+        url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23e67e22' fill-opacity='0.05' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Featured Products Section */
+.featured {
+    padding: 40px 20px;
+}
+
+.featured h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #2c3e50;
+    color: white;
+    padding: 30px 0;
+    margin-top: auto;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-menu ul {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.footer-menu ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-menu ul li a:hover {
+    color: #e67e22;
+}
+
+.social-media {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.social-media a {
+    color: white;
+    margin: 0 10px;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.social-media a:hover {
+    color: #e67e22;
+    transform: translateY(-3px);
+}
+
+.copy {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .intro h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    nav ul {
+        margin-top: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .intro h1 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .intro {
+        padding: 30px 15px;
+    }
+    
+    .categories {
+        padding: 20px 15px;
+    }
+}

@@ -1,0 +1,296 @@
+/* vdrinfostyle.css */
+
+/* Base Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f8f9fa;
+}
+
+.head {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header Styles */
+header {
+  background-color: white;
+  padding: 15px 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+  display: flex;
+  gap: 30px;
+}
+
+nav ul li {
+  list-style: none;
+}
+
+nav ul li a {
+  color: #2c3e50;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #e67e22;
+}
+
+/* Content Styles */
+.content {
+  flex: 1;
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Vendor Profile Section */
+.vendor-profile {
+  background-color: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-bottom: 40px;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.vendor-profile h1 {
+  color: #2c3e50;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.vendor-profile p {
+  color: #666;
+  font-size: 1.1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Items Section */
+.items-section {
+  padding: 20px;
+}
+
+.items-section h2 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+.items-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Item Cards */
+.col1.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.col1.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.prodimg {
+  height: 200px;
+  overflow: hidden;
+}
+
+.prodimg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.col1.card:hover .prodimg img {
+  transform: scale(1.05);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  color: #e67e22;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.card-text {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.btn-primary {
+  background-color: #e67e22;
+  border: none;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #d35400;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .content {
+      padding: 20px;
+  }
+
+  .vendor-profile {
+      padding: 30px;
+  }
+
+  .vendor-profile h1 {
+      font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .vendor-profile {
+      padding: 20px;
+  }
+
+  .vendor-profile h1 {
+      font-size: 1.8rem;
+  }
+
+  .items-section h2 {
+      font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .content {
+      padding: 15px;
+  }
+
+  .card-body {
+      padding: 15px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+      animation: none !important;
+      transition: none !important;
+  }
+}
+
+/* Focus States */
+.btn-primary:focus {
+  box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.5);
+}
+
+/* Loading State */
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+/* Error State */
+.error {
+  text-align: center;
+  padding: 40px;
+  color: #e74c3c;
+  background-color: #fdf1f0;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+/* Footer Styles */
+footer {
+  background-color: #2c3e50;
+  color: white;
+  padding: 30px 0;
+  margin-top: auto;
+}
+
+.footer-menu {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-menu ul {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.footer-menu ul li a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-size: 1rem;
+}
+
+.footer-menu ul li a:hover {
+  color: #e67e22;
+}
+
+.social-media {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.social-media a {
+  color: white;
+  margin: 0 10px;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.social-media a:hover {
+  color: #e67e22;
+  transform: translateY(-3px);
+}
+
+.copy {
+  text-align: center;
+  margin-top: 20px;
+  padding: 0 20px;
+}
+
+.copy p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+}
