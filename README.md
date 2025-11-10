@@ -246,3 +246,26 @@ GitHub: [@Ruchi](https://github.com/RJais0911)
 
 Made with ❤️ by Ruchi Jaiswal
 
+
+---
+
+## 🔧 Added: Ansible + Nagios integration (non-breaking)
+
+### Manual run (Docker)
+- App only:
+  - Backend: `docker compose up -d backend` then visit `http://localhost:3000`
+  - Frontend: `docker compose up -d frontend` then visit `http://localhost:80`
+- With optional MongoDB (profile):
+  - `docker compose --profile db up -d`
+  - Set `MONGO_URI` in `.env` (see example in Ansible README) or rely on your Atlas defaults in `src/db.js`.
+- With Nagios monitoring:
+  - `docker compose up -d nagios`
+  - Open Nagios UI: `http://localhost:8080` (user: `nagiosadmin`, pass: `nagiosadmin` by default)
+  - Monitors backend HTTP, container uptime, and CPU/memory.
+
+### Ansible deploy (optional)
+- See `ansible/README.md` for full usage.
+- Quick start (local deploy):
+  - `cd ansible`
+  - `ansible-galaxy collection install -r requirements.yml`
+  - `ansible-playbook -i "localhost," -c local site.yml`  (add `-e with_db=true` to enable MongoDB)

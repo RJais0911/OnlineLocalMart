@@ -2,10 +2,12 @@ pipeline {
     agent any
 
     environment {
-        REPO_URL = 'https://github.com/Arghya-Dutta1/Online-Local-Mart.git'
-        PROJECT_NAME = 'Online-Local-Mart'
+        REPO_URL = 'https://github.com/RJais0911/Online-Local-Mart.git'
+        PROJECT_NAME = 'OnlineLocalMart'
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
-        IMAGE_NAME = 'arghyadutta/online-market-for-local-vendors-backend:latest'
+		// Set this to YOUR Docker Hub repo (replace username below)
+		IMAGE_REPO = 'rjais11/online-local-mart-backend'
+		IMAGE_NAME = "${IMAGE_REPO}:latest"
     }
 
     stages {
@@ -34,7 +36,7 @@ pipeline {
 
         stage('Tag Docker Image') {
             steps {
-                bat 'docker tag online-local-mart-backend %IMAGE_NAME%'
+                bat 'docker tag onlinelocalmart-backend:latest %IMAGE_NAME%'
             }
         }
 
@@ -67,7 +69,7 @@ pipeline {
 
     post {
         success {
-            mail to: 'aryadutta004@gmail.com',
+            mail to: 'jaiswalruchi254@gmail.com',
                  subject: "✅ Build Success - #${env.BUILD_NUMBER}",
                  body: """
     🎉 Congratulations! The Jenkins pipeline has successfully completed all stages.
@@ -89,7 +91,7 @@ pipeline {
     """
         }
         failure {
-            mail to: 'aryadutta004@gmail.com',
+            mail to: 'jaiswalruchi254@gmail.com',
                  subject: "❌ Build Failed - #${env.BUILD_NUMBER}",
                  body: """
     ⚠️ Unfortunately, the pipeline encountered an error during execution.

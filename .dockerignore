@@ -1,1 +1,15 @@
 node_modules
+.git
+.env
+*.zip
+*.7z
+*.rar
+*.tar
+*.gz
+*.db
+*.ini
+.vscode
+.vs
+.DS_Store
+ansible/
+nagios/

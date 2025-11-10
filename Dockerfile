@@ -1,23 +1,30 @@
-# Use Node.js as base image
-FROM node:16-alpine
+# Use Node.js (Debian-based version for stability)
+FROM node:20-alpine
 
-# Create app directory
+# Set working directory
 WORKDIR /app
 
-# Copy package.json from project root
+# Configure npm registry and retry settings
+RUN npm config set registry https://registry.npmjs.org/ && \
+    npm config set fetch-retries 5 && \
+    npm config set fetch-retry-mintimeout 20000 && \
+    npm config set fetch-retry-maxtimeout 120000
+
+# Copy package files first for better caching
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+# Install dependencies (installs express and others) with retry
+RUN npm install --verbose || npm install --verbose || npm install --verbose
 
-# Copy the entire project
-COPY . ./
+# Copy the rest of the application
+COPY . .
 
-# Expose the port your app runs on
+# Expose your app's port (3000)
 EXPOSE 3000
 
-# Verify the file exists and show directory structure for debugging
-RUN ls -la && ls -la src/
+# Set environment variable if needed
+ENV NODE_PATH=/app/node_modules
 
-# Command to run the application
+# Start the application
 CMD ["node", "src/server.js"]
+

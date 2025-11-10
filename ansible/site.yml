@@ -1,0 +1,62 @@
+---
+# Ansible playbook to deploy Online Local Mart (Dockerized)
+# - Starts/stops/updates containers via Docker Compose v2
+# - Supports optional 'db' profile to run MongoDB
+# - Loads environment variables from .env if present
+
+- name: Deploy Online Local Mart
+  hosts: all
+  become: true
+  vars:
+    project_src: "{{ playbook_dir | dirname }}"  # Default to repository 'Test' directory on target host
+    app_state: "started"                         # started | stopped | restarted | present | absent
+    with_db: false                               # set true to enable Compose profile 'db'
+    pull_images: true                            # pull the latest images before (re)create
+  collections:
+    - community.docker
+
+  tasks:
+    - name: Ensure Docker Engine is installed (Debian/Ubuntu)
+      package:
+        name: docker.io
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Ensure Docker Compose plugin is installed
+      package:
+        name: docker-compose-plugin
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Create env file if not exists (non-fatal)
+      copy:
+        dest: "{{ project_src }}/.env"
+        content: |
+          # Generated placeholder .env (override in production)
+          APP_PORT=3000
+          FRONTEND_PORT=80
+          NODE_ENV=production
+          # MongoDB (used when profile 'db' is enabled)
+          MONGODB_PORT=27017
+          MONGO_INITDB_ROOT_USERNAME=localuser
+          MONGO_INITDB_ROOT_PASSWORD=localpass
+          # Nagios default credentials
+          NAGIOSADMIN_USER=nagiosadmin
+          NAGIOSADMIN_PASS=nagiosadmin
+        force: no
+        mode: "0640"
+
+    - name: Bring application to desired state with Docker Compose v2
+      community.docker.docker_compose_v2:
+        project_src: "{{ project_src }}"
+        state: "{{ app_state }}"
+        pull: "{{ pull_images }}"
+        profiles: "{{ (with_db | bool) | ternary(['db'], []) }}"
+      register: compose_result
+
+    - name: Show changed services
+      debug:
+        var: compose_result
+      when: compose_result is defined
+
+
