@@ -4,7 +4,6 @@ services:
       context: ./public
       dockerfile: Dockerfile.frontend
     ports:
-      # Map frontend port; override with FRONTEND_PORT in .env if desired
       - "${FRONTEND_PORT:-80}:80"
     depends_on:
       - backend
@@ -19,11 +18,9 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      # Map backend port; override with APP_PORT in .env if desired
-      - "${APP_PORT:-3000}:3000"
+      - "${APP_PORT:-3001}:3000"
     volumes:
       - ./src:/app/src
-    # Load environment variables for the app (optional but recommended)
     env_file:
       - .env
     environment:
@@ -34,8 +31,6 @@ services:
       - 8.8.8.8
       - 8.8.4.4
 
-  # Optional MongoDB service enabled via Compose profiles.
-  # Run with: docker compose --profile db up -d
   mongodb:
     image: mongo:6
     restart: unless-stopped
@@ -50,7 +45,6 @@ services:
     networks:
       - app-network
 
-  # Nagios monitoring service. Exposes web UI on port 8080 by default.
   nagios:
     image: jasonrivers/nagios:latest
     container_name: nagios
@@ -58,22 +52,28 @@ services:
     depends_on:
       - backend
     ports:
-      - "${NAGIOS_HTTP_PORT:-8080}:80"
+      - "${NAGIOS_HTTP_PORT:-8081}:80"
     environment:
-      # Credentials for Nagios UI (http://localhost:${NAGIOS_HTTP_PORT:-8080})
       - NAGIOSADMIN_USER=${NAGIOSADMIN_USER:-nagiosadmin}
       - NAGIOSADMIN_PASS=${NAGIOSADMIN_PASS:-nagiosadmin}
     volumes:
-      # Custom Nagios object/service definitions
       - ./monitoring/nagios/objects:/opt/nagios/etc/objects/custom:ro
-      # Custom command definitions (merged via included cfg)
       - ./monitoring/nagios/commands:/opt/nagios/etc/commands-custom:ro
-      # Custom plugins (container/CPU/memory checks)
       - ./monitoring/nagios/plugins:/opt/nagios/libexec/custom:ro
-      # Docker socket for container checks (read-only)
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      # Include our object and command configs
       - ./monitoring/nagios/include/online_local_mart.conf:/opt/nagios/etc/conf.d/online_local_mart.conf:ro
+    networks:
+      - app-network
+
+  ansible:
+    image: williamyeh/ansible:alpine3
+    container_name: ansible
+    working_dir: /ansible
+    volumes:
+      - ./ansible:/ansible
+    tty: true
+    stdin_open: true
+    command: tail -f /dev/null
     networks:
       - app-network
 

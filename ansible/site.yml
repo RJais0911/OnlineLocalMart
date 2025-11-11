@@ -1,62 +1,51 @@
 ---
 # Ansible playbook to deploy Online Local Mart (Dockerized)
-# - Starts/stops/updates containers via Docker Compose v2
-# - Supports optional 'db' profile to run MongoDB
-# - Loads environment variables from .env if present
+# Runs directly inside the Ansible container (localhost)
 
 - name: Deploy Online Local Mart
-  hosts: all
-  become: true
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: false
+
   vars:
-    project_src: "{{ playbook_dir | dirname }}"  # Default to repository 'Test' directory on target host
-    app_state: "started"                         # started | stopped | restarted | present | absent
-    with_db: false                               # set true to enable Compose profile 'db'
-    pull_images: true                            # pull the latest images before (re)create
-  collections:
-    - community.docker
+    project_src: "/ansible/.."               # Path to main project (mounted from host)
+    app_state: "started"                     # started | stopped | restarted | present | absent
+    with_db: false                           # Enable Compose 'db' profile if true
+    pull_images: true                        # Pull latest images before (re)create
 
   tasks:
-    - name: Ensure Docker Engine is installed (Debian/Ubuntu)
-      package:
-        name: docker.io
-        state: present
-      when: ansible_os_family == "Debian"
+    - name: Ensure community.docker collection is installed
+      shell: ansible-galaxy collection install community.docker
+      args:
+        warn: false
+      changed_when: false
 
-    - name: Ensure Docker Compose plugin is installed
-      package:
-        name: docker-compose-plugin
-        state: present
-      when: ansible_os_family == "Debian"
-
-    - name: Create env file if not exists (non-fatal)
+    - name: Create default .env file if missing
       copy:
         dest: "{{ project_src }}/.env"
         content: |
-          # Generated placeholder .env (override in production)
           APP_PORT=3000
           FRONTEND_PORT=80
           NODE_ENV=production
-          # MongoDB (used when profile 'db' is enabled)
           MONGODB_PORT=27017
           MONGO_INITDB_ROOT_USERNAME=localuser
           MONGO_INITDB_ROOT_PASSWORD=localpass
-          # Nagios default credentials
           NAGIOSADMIN_USER=nagiosadmin
           NAGIOSADMIN_PASS=nagiosadmin
         force: no
         mode: "0640"
 
-    - name: Bring application to desired state with Docker Compose v2
-      community.docker.docker_compose_v2:
-        project_src: "{{ project_src }}"
-        state: "{{ app_state }}"
-        pull: "{{ pull_images }}"
-        profiles: "{{ (with_db | bool) | ternary(['db'], []) }}"
-      register: compose_result
+    - name: Deploy stack with Docker Compose v2
+      shell: |
+        cd {{ project_src }}
+        docker compose {{ (with_db | bool) | ternary('--profile db ', '') }} up -d
+      args:
+        executable: /bin/sh
 
-    - name: Show changed services
-      debug:
-        var: compose_result
-      when: compose_result is defined
+    - name: Show running containers
+      shell: docker ps
+      register: ps_output
 
-
+    - debug:
+        var: ps_output.stdout_lines

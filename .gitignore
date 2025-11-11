@@ -1,1 +1,24 @@
-node_modules
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Docker
+*.env
+.env.*
+
+# Python / Ansible virtual environments
+ansible-venv/
+venv/
+__pycache__/
+*.pyc
+
+# Logs and temp
+*.log
+tmp/
+logs/
+
+# IDEs and system files
+.vscode/
+.DS_Store
+Thumbs.db

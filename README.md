@@ -260,7 +260,7 @@ Made with ❤️ by Ruchi Jaiswal
   - Set `MONGO_URI` in `.env` (see example in Ansible README) or rely on your Atlas defaults in `src/db.js`.
 - With Nagios monitoring:
   - `docker compose up -d nagios`
-  - Open Nagios UI: `http://localhost:8080` (user: `nagiosadmin`, pass: `nagiosadmin` by default)
+  - Open Nagios UI: `http://localhost:8081` (user: `nagiosadmin`, pass: `nagiosadmin` by default)
   - Monitors backend HTTP, container uptime, and CPU/memory.
 
 ### Ansible deploy (optional)

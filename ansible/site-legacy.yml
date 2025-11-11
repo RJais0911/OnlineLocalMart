@@ -1,0 +1,120 @@
+---
+# Ansible playbook for Online Local Mart (Compatible with Ansible 2.7.2)
+# Uses shell commands instead of docker_compose_v2 module
+# - Starts/stops/updates containers via Docker Compose
+# - Supports optional 'db' profile to run MongoDB
+# - Loads environment variables from .env if present
+
+- name: Deploy Online Local Mart (Legacy Compatible)
+  hosts: all
+  become: true
+  vars:
+    project_src: "{{ playbook_dir | dirname }}"  # Default to repository 'Test' directory
+    app_state: "started"                         # started | stopped | restarted
+    with_db: false                               # set true to enable Compose profile 'db'
+    pull_images: false                           # set true to pull latest images
+
+  tasks:
+    - name: Check if Docker is installed
+      command: which docker
+      register: docker_check
+      changed_when: false
+      failed_when: false
+
+    - name: Check if Docker Compose is installed
+      command: which docker-compose
+      register: docker_compose_check
+      changed_when: false
+      failed_when: false
+
+    - name: Check if Docker socket is accessible
+      stat:
+        path: /var/run/docker.sock
+      register: docker_sock
+      failed_when: false
+
+    - name: Fail with helpful message if Docker is not available
+      fail:
+        msg: |
+          Docker is not available in this environment.
+          
+          Solutions:
+          1. If running in a container, mount Docker socket: -v /var/run/docker.sock:/var/run/docker.sock
+          2. Install Docker in the container (Docker-in-Docker)
+          3. Run Ansible on the host machine instead of in a container
+          
+          Current status:
+          - Docker binary: {{ 'Found' if docker_check.rc == 0 else 'Not found' }}
+          - Docker Compose: {{ 'Found' if docker_compose_check.rc == 0 else 'Not found' }}
+          - Docker socket: {{ 'Accessible' if docker_sock.stat.exists else 'Not accessible' }}
+      when: docker_check.rc != 0 or docker_compose_check.rc != 0 or not docker_sock.stat.exists
+
+    - name: Create .env file if not exists
+      copy:
+        dest: "{{ project_src }}/.env"
+        content: |
+          # Generated placeholder .env (override in production)
+          APP_PORT=3000
+          FRONTEND_PORT=80
+          NODE_ENV=production
+          # MongoDB (used when profile 'db' is enabled)
+          MONGODB_PORT=27017
+          MONGO_INITDB_ROOT_USERNAME=localuser
+          MONGO_INITDB_ROOT_PASSWORD=localpass
+          # Nagios default credentials
+          NAGIOSADMIN_USER=nagiosadmin
+          NAGIOSADMIN_PASS=nagiosadmin
+        force: no
+        mode: "0640"
+
+    - name: Pull latest images (if requested)
+      shell: |
+        cd {{ project_src }}
+        docker-compose pull
+      when: pull_images | bool
+      ignore_errors: yes
+
+    - name: Stop containers (if state is stopped)
+      shell: |
+        cd {{ project_src }}
+        {% if with_db | bool %}
+        docker-compose --profile db down
+        {% else %}
+        docker-compose down
+        {% endif %}
+      when: app_state == "stopped"
+      ignore_errors: yes
+
+    - name: Start containers (if state is started or restarted)
+      shell: |
+        cd {{ project_src }}
+        {% if with_db | bool %}
+        docker-compose --profile db up -d
+        {% else %}
+        docker-compose up -d
+        {% endif %}
+      when: app_state in ["started", "restarted"]
+      register: compose_start
+
+    - name: Restart containers (if state is restarted)
+      shell: |
+        cd {{ project_src }}
+        {% if with_db | bool %}
+        docker-compose --profile db restart
+        {% else %}
+        docker-compose restart
+        {% endif %}
+      when: app_state == "restarted"
+      register: compose_restart
+
+    - name: Show container status
+      shell: |
+        cd {{ project_src }}
+        docker-compose ps
+      register: container_status
+      changed_when: false
+
+    - name: Display container status
+      debug:
+        var: container_status.stdout_lines
+
