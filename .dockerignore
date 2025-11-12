@@ -12,4 +12,5 @@ node_modules
 .vs
 .DS_Store
 ansible/
+ansible-venv/
 nagios/

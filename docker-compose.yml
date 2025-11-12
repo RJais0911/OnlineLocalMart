@@ -57,11 +57,10 @@ services:
       - NAGIOSADMIN_USER=${NAGIOSADMIN_USER:-nagiosadmin}
       - NAGIOSADMIN_PASS=${NAGIOSADMIN_PASS:-nagiosadmin}
     volumes:
-      - ./monitoring/nagios/objects:/opt/nagios/etc/objects/custom:ro
-      - ./monitoring/nagios/commands:/opt/nagios/etc/commands-custom:ro
+      - ./monitoring/nagios/objects/online_local_mart.cfg:/opt/nagios/etc/conf.d/online_local_mart.cfg:ro
+      - ./monitoring/nagios/objects/online_local_mart_commands.cfg:/opt/nagios/etc/conf.d/online_local_mart_commands.cfg:ro
       - ./monitoring/nagios/plugins:/opt/nagios/libexec/custom:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./monitoring/nagios/include/online_local_mart.conf:/opt/nagios/etc/conf.d/online_local_mart.conf:ro
     networks:
       - app-network
 
